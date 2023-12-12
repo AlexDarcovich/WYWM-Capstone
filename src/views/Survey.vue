@@ -2,9 +2,10 @@
   <div class="container">
     <h1>Course Survey</h1>
     <Survey :survey="survey" v-if="success"/>
-    <div class="errorBox" ref="errorBox" v-else> 
+    <div class="errorBox" v-else> 
       <h1 class="errorMessage" >400: Bad Request</h1>
-      <p class="errorMessage"> There are {{missingFields}}  fields which have been left blank.</p>
+      <p class="errorMessage" v-if="this.missingFields > 1"> There are {{missingFields}} fields which have been left blank.</p>
+      <p class="errorMessage" v-else> There is 1 field which has been left blank.</p>
       <br>
       <p class="errorMessage">Please try again.</p>
     </div>

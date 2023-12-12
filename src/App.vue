@@ -2,15 +2,15 @@
   <div id="app">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="https://localhost:3000/survey-results">Results</a>
-        </div>
         <ul class="nav navbar-nav">
           <li>
             <router-link to="/">Home</router-link>
           </li>
           <li>
             <router-link to="/survey" @click.native="refresh">Survey</router-link>
+          </li>
+          <li>
+            <router-link to="/results">Results</router-link>
           </li>
         </ul>
       </div>
@@ -30,6 +30,7 @@ Vue.use(VueRouter);
 const Home = () => import("./views/Home.vue");
 const Survey = () =>
   import(/* webpackChunkName: "survey" */ "./views/Survey.vue");
+const Results = () => import("./views/Results.vue");
 
 const router = new VueRouter({
   mode: "history",
@@ -37,7 +38,8 @@ const router = new VueRouter({
   routes: [
     { path: "/", component: Home },
     // Just use them normally in the route config
-    { path: "/survey", component: Survey }
+    { path: "/survey", component: Survey },
+    { path: "/results", component: Results }
   ],
 });
 
