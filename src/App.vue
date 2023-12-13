@@ -47,10 +47,15 @@ export default {
   name: "app",
   router: router,  
   methods: {
+
+      // refresh method provides refresh functionality when clicking the survey button in the nav bar...
       refresh() {
+
+          // ...if the current page is the survey page after having submitted a survey
           if (window.location.href.indexOf("survey") !== -1 && this.$el.querySelectorAll('input').length == 0) {
               location.reload();
           }
+
       }
   }
 };

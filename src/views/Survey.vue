@@ -19,36 +19,46 @@ StylesManager.applyTheme("modern");
 import { json } from "../data/survey_json";
 
 export default {
+
   components: {
     Survey
   },
+
   data() {
-  const model = new Model(json);
-  model.onComplete.add((survey) => {
-    this.sendDataToServer(survey);
-  });
-    return {
-      survey: model,
-      success: true,
-      missingFields: 0
-    };
+
+    // survey model is created and calls a method to send the survey to the backend if the on complete button is clicked
+    const model = new Model(json);
+    model.onComplete.add((survey) => {
+      this.sendDataToServer(survey);
+    });
+
+      return {
+        survey: model,
+        success: true,
+        missingFields: 0
+      };
+
   },
   methods: {
+
+    // method which makes a POST request to an API in order to submit a completed survey to the backend database
     async sendDataToServer(survey) {
+
       console.log('sendDataToServer is called'); // Debug line
       const surveyData = survey.data;
+
       try {
 
-        // send the data to the server
+        // the POST request is made with the completed survey...
         const response1 = await this.$http.post('https://localhost:3000/survey-results', surveyData);
+
+        // ...and assuming the request is successful, the response to this request is displayed to the console
         console.log('Data sent successfully:', response1.data);
-        const response2 = await this.$http.get('https://localhost:3000/survey-results');    
-        console.log('Current Data:', response2.data);
-
+        
+      // if the POST request is unsuccesful, then an error is thrown and the number of missing fields are displayed as well
       } catch (error) {
-
+ 
         console.error('Error sending data:', error);
-        console.log(Object.keys(surveyData).length);
         this.success = false;
         this.missingFields = 10 - Object.keys(surveyData).length;
         
